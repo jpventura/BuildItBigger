@@ -26,16 +26,39 @@ android {
         versionCode 1
         versionName "1.0"
     }
+    signingConfigs {
+        debug {
+            storeFile rootProject.file('android.keystore')
+            storePassword 'android'
+            keyAlias 'debug'
+            keyPassword 'android_debug'
+        }
+        release {
+            storeFile rootProject.file('android.keystore')
+            storePassword 'android'
+            keyAlias 'release'
+            keyPassword 'android_debug'
+        }
+    }
     buildTypes {
+        debug {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.debug
+        }
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.release
         }
     }
 }
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
+    compile project(path: ':backend', configuration: 'android-endpoints')
     testCompile 'junit:junit:4.12'
     compile 'com.android.support:appcompat-v7:23.1.1'
+    compile 'com.google.android.gms:play-services-auth:8.4.0'
+    compile 'com.firebase:firebase-client-android:2.3.1'
 }
