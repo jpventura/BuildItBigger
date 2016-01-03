@@ -29,15 +29,15 @@ android {
     signingConfigs {
         debug {
             storeFile rootProject.file('android.keystore')
-            storePassword 'android'
+            storePassword 'nv=V[39yx86(38T'
             keyAlias 'debug'
-            keyPassword 'android_debug'
+            keyPassword 'nv=V[39yx86(38T'
         }
         release {
             storeFile rootProject.file('android.keystore')
-            storePassword 'android'
+            storePassword 'nv=V[39yx86(38T'
             keyAlias 'release'
-            keyPassword 'android_debug'
+            keyPassword 'x86(38Tnv=V[39y'
         }
     }
     buildTypes {
