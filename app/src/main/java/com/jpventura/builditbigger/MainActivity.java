@@ -17,14 +17,19 @@ package com.jpventura.builditbigger;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
 
-public class MainActivity extends AppCompatActivity {
-
+public class MainActivity extends AppCompatActivity implements View.OnClickListener {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        findViewById(R.id.button_get_joke).setOnClickListener(this);
+    }
 
-
+    @Override
+    public void onClick(View view) {
+        Log.e("ventura", "funcionou");
     }
 }
