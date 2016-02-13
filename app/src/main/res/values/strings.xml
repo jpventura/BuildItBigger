@@ -17,4 +17,6 @@
 <resources>
     <string name="app_name">Build It Bigger</string>
     <string name="button_get_fact">Norris me</string>
+    <string name="dialog_message">Waiting for Mr. Norris</string>
+    <string name="dialog_title">Downloading</string>
 </resources>
