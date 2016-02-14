@@ -14,37 +14,33 @@
  - See the License for the specific language governing permissions and
  - limitations under the License.
 -->
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:weightSum="20"
     tools:context="com.jpventura.builditbigger.MainActivity">
 
     <ImageView
+        android:id="@+id/avatar"
         android:layout_width="match_parent"
-        android:layout_weight="10"
-        android:layout_height="0dp"
-        android:layout_margin="4dp"
-
+        android:layout_height="wrap_content"
         android:src="@drawable/chuck_norris"
-        android:scaleType="centerCrop" />
+        android:scaleType="center" />
 
     <TextView
         android:id="@+id/text_fact"
+        android:layout_below="@id/avatar"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="8"
+        android:layout_height="wrap_content"
         android:textAlignment="center"
         android:text="Hello World!" />
 
     <Button
         android:id="@+id/button_get_fact"
         android:layout_width="match_parent"
-        android:layout_weight="2"
+        android:layout_height="wrap_content"
         android:text="@string/button_get_fact"
-        android:layout_height="0dp" />
-
-</LinearLayout>
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+</RelativeLayout>
