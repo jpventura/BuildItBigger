@@ -19,6 +19,6 @@
     <string name="button_get_fact">Norris me</string>
     <string name="dialog_message">Waiting for Mr. Norris</string>
     <string name="dialog_title">Downloading</string>
-    <string name="ad_unit_id_banner" translatable="false">YOUR BANNER AD UNIT ID</string>
-    <string name="ad_unit_id_interstetial" translatable="false">YOUR INTERSTETIAL AD UNIT ID</string>
+    <string name="ad_unit_id_banner" translatable="false">ca-app-pub-3300426539867145/2107253911</string>
+    <string name="ad_unit_id_interstetial" translatable="false">ca-app-pub-3300426539867145/7595384312</string>
 </resources>
