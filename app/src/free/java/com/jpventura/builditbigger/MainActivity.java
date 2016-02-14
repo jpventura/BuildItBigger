@@ -23,6 +23,10 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.TextView;
 
+import com.google.android.gms.ads.AdListener;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.InterstitialAd;
 import com.jpventura.builditbigger.command.GetChuckNorrisFact;
 
 public class MainActivity extends AppCompatActivity implements OnClickListener {
@@ -32,7 +36,9 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
     private static ProgressDialog sProgressDialog;
     private static String sChuckNorrisFact;
 
+    private AdView mAdView;
     private TextView mTextView;
+    private InterstitialAd mInterstitialAd;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +49,31 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
         mTextView.setText(sChuckNorrisFact);
 
         findViewById(R.id.button_get_fact).setOnClickListener(this);
+
+        AdRequest adRequest = new AdRequest.Builder()
+                .addTestDevice(AdRequest.DEVICE_ID_EMULATOR)
+                .build();
+        mAdView = (AdView) findViewById(R.id.ad_view_banner);
+        mAdView.loadAd(adRequest);
+
+        mInterstitialAd = new InterstitialAd(this);
+        mInterstitialAd.setAdUnitId(getString(R.string.ad_unit_id_interstetial));
+        mInterstitialAd.setAdListener(new AdListener() {
+            @Override
+            public void onAdClosed() {
+                super.onAdClosed();
+                getChuckNorrisFact();
+            }
+        });
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        AdRequest adRequest = new AdRequest.Builder()
+                .addTestDevice(AdRequest.DEVICE_ID_EMULATOR)
+                .build();
+        mInterstitialAd.loadAd(adRequest);
     }
 
     @Override
@@ -65,7 +96,9 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
 
     @Override
     public void onClick(View view) {
-        getChuckNorrisFact();
+        if (mInterstitialAd.isLoaded()) {
+            mInterstitialAd.show();
+        }
     }
 
     private void onSaveProgressDialog(Bundle state) {
@@ -114,6 +147,7 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
                 setChuckNorrisFact(fact);
             }
         };
+
         command.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
     }
 }
