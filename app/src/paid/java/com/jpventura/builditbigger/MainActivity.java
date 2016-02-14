@@ -25,10 +25,6 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.TextView;
 
-import com.google.android.gms.ads.AdListener;
-import com.google.android.gms.ads.AdRequest;
-import com.google.android.gms.ads.AdView;
-import com.google.android.gms.ads.InterstitialAd;
 import com.jpventura.builditbigger.command.GetChuckNorrisFact;
 import com.jpventura.builditbigger.command.GetGoogleAccount;
 import com.jpventura.builditbigger.command.GetGoogleAccount.OnGetGoogleAccountListener;
@@ -42,9 +38,7 @@ public class MainActivity extends AppCompatActivity implements OnClickListener,
     private static ProgressDialog sProgressDialog;
     private static String sChuckNorrisFact;
 
-    private AdView mAdView;
     private TextView mTextView;
-    private InterstitialAd mInterstitialAd;
     private ChuckNorrisClient mChuckNorrisClient;
 
     @Override
@@ -57,37 +51,12 @@ public class MainActivity extends AppCompatActivity implements OnClickListener,
 
         findViewById(R.id.button_get_fact).setOnClickListener(this);
 
-        AdRequest adRequest = new AdRequest.Builder()
-                .addTestDevice(AdRequest.DEVICE_ID_EMULATOR)
-                .build();
-        mAdView = (AdView) findViewById(R.id.ad_view_banner);
-        mAdView.loadAd(adRequest);
-
-        mInterstitialAd = new InterstitialAd(this);
-        mInterstitialAd.setAdUnitId(getString(R.string.ad_unit_id_interstetial));
-        mInterstitialAd.setAdListener(new AdListener() {
-            @Override
-            public void onAdClosed() {
-                super.onAdClosed();
-                getChuckNorrisFact();
-            }
-        });
-
         mGetGoogleAccount = new GetGoogleAccount(this);
         mGetGoogleAccount.setOnGetGoogleAccountListener(this);
         mGetGoogleAccount.execute();
     }
 
     private GetGoogleAccount mGetGoogleAccount;
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        AdRequest adRequest = new AdRequest.Builder()
-                .addTestDevice(AdRequest.DEVICE_ID_EMULATOR)
-                .build();
-        mInterstitialAd.loadAd(adRequest);
-    }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -123,15 +92,12 @@ public class MainActivity extends AppCompatActivity implements OnClickListener,
 
     @Override
     public void onClick(View view) {
-        if (mInterstitialAd.isLoaded()) {
-            mInterstitialAd.show();
-        }
+		getChuckNorrisFact();
     }
 
     @Override
     public void onGetGoogleAccount(String account) {
         ChuckNorrisClient.initialize(this, account);
-        mChuckNorrisClient = ChuckNorrisClient.getInstance();
     }
 
     private void onSaveProgressDialog(Bundle state) {
