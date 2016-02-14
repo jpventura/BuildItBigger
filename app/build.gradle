@@ -72,5 +72,6 @@ dependencies {
     compile 'com.firebase:firebase-client-android:2.3.1'
     compile fileTree(include: ['*.jar'], dir: 'libs')
     compile project(path: ':backend', configuration: 'android-endpoints')
+    freeCompile 'com.google.android.gms:play-services:8.4.0'
     testCompile 'junit:junit:4.12'
 }
