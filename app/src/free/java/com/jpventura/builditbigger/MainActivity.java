@@ -16,9 +16,11 @@
 package com.jpventura.builditbigger;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.TextView;
@@ -28,8 +30,11 @@ import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.InterstitialAd;
 import com.jpventura.builditbigger.command.GetChuckNorrisFact;
+import com.jpventura.builditbigger.command.GetGoogleAccount;
+import com.jpventura.builditbigger.command.GetGoogleAccount.OnGetGoogleAccountListener;
 
-public class MainActivity extends AppCompatActivity implements OnClickListener {
+public class MainActivity extends AppCompatActivity implements OnClickListener,
+        OnGetGoogleAccountListener {
     private static final String TAG = MainActivity.class.getSimpleName();
     private static final String PROGRESS_BAR_VISIBLE = "com.jpventura.builditbigger.progress_bar";
 
@@ -65,7 +70,13 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
                 getChuckNorrisFact();
             }
         });
+
+        mGetGoogleAccount = new GetGoogleAccount(this);
+        mGetGoogleAccount.setOnGetGoogleAccountListener(this);
+        mGetGoogleAccount.execute();
     }
+
+    private GetGoogleAccount mGetGoogleAccount;
 
     @Override
     protected void onResume() {
@@ -74,6 +85,17 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
                 .addTestDevice(AdRequest.DEVICE_ID_EMULATOR)
                 .build();
         mInterstitialAd.loadAd(adRequest);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        switch (requestCode) {
+            case GetGoogleAccount.REQUEST_CODE:
+                mGetGoogleAccount.onActivityResult(resultCode, data);
+                break;
+            default:
+                super.onActivityResult(requestCode, resultCode, data);
+        }
     }
 
     @Override
@@ -99,6 +121,10 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
         if (mInterstitialAd.isLoaded()) {
             mInterstitialAd.show();
         }
+    }
+
+    @Override
+    public void onGetGoogleAccount(String account) {
     }
 
     private void onSaveProgressDialog(Bundle state) {
