@@ -18,6 +18,8 @@ package com.jpventura.builditbigger.command;
 import android.content.Context;
 import android.os.AsyncTask;
 
+import com.jpventura.builditbigger.controller.ChuckNorrisClient;
+
 import java.lang.ref.WeakReference;
 
 public abstract class GetChuckNorrisFact extends AsyncTask<Void, Integer, String> {
@@ -29,6 +31,7 @@ public abstract class GetChuckNorrisFact extends AsyncTask<Void, Integer, String
 
     @Override
     protected String doInBackground(Void... params) {
-        return null;
+        ChuckNorrisClient client = ChuckNorrisClient.getInstance();
+        return client.getJoke();
     }
 }

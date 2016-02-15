@@ -32,6 +32,7 @@ import com.google.android.gms.ads.InterstitialAd;
 import com.jpventura.builditbigger.command.GetChuckNorrisFact;
 import com.jpventura.builditbigger.command.GetGoogleAccount;
 import com.jpventura.builditbigger.command.GetGoogleAccount.OnGetGoogleAccountListener;
+import com.jpventura.builditbigger.controller.ChuckNorrisClient;
 
 public class MainActivity extends AppCompatActivity implements OnClickListener,
         OnGetGoogleAccountListener {
@@ -44,6 +45,7 @@ public class MainActivity extends AppCompatActivity implements OnClickListener,
     private AdView mAdView;
     private TextView mTextView;
     private InterstitialAd mInterstitialAd;
+    private ChuckNorrisClient mChuckNorrisClient;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -93,6 +95,9 @@ public class MainActivity extends AppCompatActivity implements OnClickListener,
             case GetGoogleAccount.REQUEST_CODE:
                 mGetGoogleAccount.onActivityResult(resultCode, data);
                 break;
+            case ChuckNorrisClient.REQUEST_CODE:
+                mChuckNorrisClient.onActivityResult(resultCode, data);
+                break;
             default:
                 super.onActivityResult(requestCode, resultCode, data);
         }
@@ -125,6 +130,7 @@ public class MainActivity extends AppCompatActivity implements OnClickListener,
 
     @Override
     public void onGetGoogleAccount(String account) {
+        ChuckNorrisClient.initialize(this, account);
     }
 
     private void onSaveProgressDialog(Bundle state) {

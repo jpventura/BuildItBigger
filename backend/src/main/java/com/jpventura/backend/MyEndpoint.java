@@ -24,10 +24,18 @@ import com.jpventura.IChuckNorrisDatabase;
 @Api(
         name = "jokes",
         version = "v1",
+        audiences = {
+                Constants.WEB_CLIENT_ID,
+                "280863524374-dls5eufh0ad9s8a72pcmdmes2n6uo19g.apps.googleusercontent.com",
+                "280863524374-ta1iojofh9mkltd6aooo9efm8kkf37t0.apps.googleusercontent.com",
+                Constants.ANDROID_CLIENT_ID
+        },
         clientIds = {
                 Constants.ANDROID_CLIENT_ID,
                 Constants.API_EXPLORER_CLIENT_ID,
-                Constants.WEB_CLIENT_ID
+                Constants.WEB_CLIENT_ID,
+                "280863524374-dls5eufh0ad9s8a72pcmdmes2n6uo19g.apps.googleusercontent.com",
+                "280863524374-ta1iojofh9mkltd6aooo9efm8kkf37t0.apps.googleusercontent.com"
         },
         scopes = {
                 Constants.API_EMAIL_SCOPE
