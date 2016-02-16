@@ -52,11 +52,6 @@ public class ChuckNorrisClient {
     }
 
     public void onActivityResult(int resultCode,  Intent data) {
-        if (Activity.RESULT_OK == resultCode) {
-            Log.e("ventura", "deu " + data.toString());
-        } else {
-            Log.e("ventura", "nao deu");
-        }
     }
 
     @WorkerThread
