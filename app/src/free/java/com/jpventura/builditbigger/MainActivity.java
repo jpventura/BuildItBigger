@@ -20,41 +20,28 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.widget.TextView;
 
 import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.InterstitialAd;
 import com.jpventura.builditbigger.command.GetChuckNorrisFact;
-import com.jpventura.builditbigger.command.GetGoogleAccount;
-import com.jpventura.builditbigger.command.GetGoogleAccount.OnGetGoogleAccountListener;
-import com.jpventura.builditbigger.controller.ChuckNorrisClient;
 
-public class MainActivity extends AppCompatActivity implements OnClickListener,
-        OnGetGoogleAccountListener {
+public class MainActivity extends AppCompatActivity implements OnClickListener {
     private static final String TAG = MainActivity.class.getSimpleName();
     private static final String PROGRESS_BAR_VISIBLE = "com.jpventura.builditbigger.progress_bar";
 
     private static ProgressDialog sProgressDialog;
-    private static String sChuckNorrisFact;
 
     private AdView mAdView;
-    private TextView mTextView;
     private InterstitialAd mInterstitialAd;
-    private ChuckNorrisClient mChuckNorrisClient;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        mTextView = (TextView) findViewById(R.id.text_fact);
-        mTextView.setText(sChuckNorrisFact);
-
         findViewById(R.id.button_get_fact).setOnClickListener(this);
 
         AdRequest adRequest = new AdRequest.Builder()
@@ -72,13 +59,7 @@ public class MainActivity extends AppCompatActivity implements OnClickListener,
                 getChuckNorrisFact();
             }
         });
-
-        mGetGoogleAccount = new GetGoogleAccount(this);
-        mGetGoogleAccount.setOnGetGoogleAccountListener(this);
-        mGetGoogleAccount.execute();
     }
-
-    private GetGoogleAccount mGetGoogleAccount;
 
     @Override
     protected void onResume() {
@@ -87,20 +68,6 @@ public class MainActivity extends AppCompatActivity implements OnClickListener,
                 .addTestDevice(AdRequest.DEVICE_ID_EMULATOR)
                 .build();
         mInterstitialAd.loadAd(adRequest);
-    }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        switch (requestCode) {
-            case GetGoogleAccount.REQUEST_CODE:
-                mGetGoogleAccount.onActivityResult(resultCode, data);
-                break;
-            case ChuckNorrisClient.REQUEST_CODE:
-                mChuckNorrisClient.onActivityResult(resultCode, data);
-                break;
-            default:
-                super.onActivityResult(requestCode, resultCode, data);
-        }
     }
 
     @Override
@@ -126,12 +93,6 @@ public class MainActivity extends AppCompatActivity implements OnClickListener,
         if (mInterstitialAd.isLoaded()) {
             mInterstitialAd.show();
         }
-    }
-
-    @Override
-    public void onGetGoogleAccount(String account) {
-        ChuckNorrisClient.initialize(this, account);
-        mChuckNorrisClient = ChuckNorrisClient.getInstance();
     }
 
     private void onSaveProgressDialog(Bundle state) {
@@ -163,8 +124,9 @@ public class MainActivity extends AppCompatActivity implements OnClickListener,
     }
 
     private void setChuckNorrisFact(String fact) {
-        sChuckNorrisFact = fact;
-        mTextView.setText(fact);
+        Intent intent = new Intent(this, ChuckNorrisActivity.class);
+        intent.putExtra("fact", fact);
+        startActivity(intent);
     }
 
     private void getChuckNorrisFact() {

@@ -38,16 +38,12 @@ public class MainActivity extends AppCompatActivity implements OnClickListener,
     private static ProgressDialog sProgressDialog;
     private static String sChuckNorrisFact;
 
-    private TextView mTextView;
     private ChuckNorrisClient mChuckNorrisClient;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        mTextView = (TextView) findViewById(R.id.text_fact);
-        mTextView.setText(sChuckNorrisFact);
 
         findViewById(R.id.button_get_fact).setOnClickListener(this);
 
@@ -130,7 +126,9 @@ public class MainActivity extends AppCompatActivity implements OnClickListener,
 
     private void setChuckNorrisFact(String fact) {
         sChuckNorrisFact = fact;
-        mTextView.setText(fact);
+        Intent intent = new Intent(this, ChuckNorrisActivity.class);
+        intent.putExtra("fact", fact);
+        startActivity();
     }
 
     private void getChuckNorrisFact() {
@@ -150,4 +148,3 @@ public class MainActivity extends AppCompatActivity implements OnClickListener,
         command.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
     }
 }
-

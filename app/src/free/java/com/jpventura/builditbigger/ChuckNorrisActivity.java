@@ -13,25 +13,20 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.jpventura.builditbigger.command;
+package com.jpventura.builditbigger;
 
-import android.content.Context;
-import android.os.AsyncTask;
+import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+import android.widget.TextView;
 
-import com.jpventura.builditbigger.controller.ChuckNorrisClient;
-
-import java.lang.ref.WeakReference;
-
-public abstract class GetChuckNorrisFact extends AsyncTask<Void, Integer, String> {
-    private WeakReference<Context> mContext;
-
-    public GetChuckNorrisFact(Context context) {
-        mContext = new WeakReference<>(context);
-    }
-
+public class ChuckNorrisActivity extends AppCompatActivity {
     @Override
-    protected String doInBackground(Void... params) {
-        ChuckNorrisClient client = ChuckNorrisClient.getInstance(mContext.get());
-        return client.getJoke();
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_chuck_norris);
+
+        String fact = getIntent().getStringExtra("fact");
+        TextView mTextView = (TextView) findViewById(R.id.text_fact);
+        mTextView.setText(fact);
     }
 }

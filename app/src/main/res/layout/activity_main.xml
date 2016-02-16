@@ -27,14 +27,6 @@
         android:src="@drawable/chuck_norris"
         android:scaleType="center" />
 
-    <TextView
-        android:id="@+id/text_fact"
-        android:layout_below="@id/avatar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textAlignment="center"
-        android:text="Hello World!" />
-
     <Button
         android:id="@+id/button_get_fact"
         android:layout_width="match_parent"
