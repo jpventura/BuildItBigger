@@ -31,6 +31,12 @@ allprojects {
     }
 }
 
+task test(dependsOn: [":backend:appengineRun", ":app:connectedAndroidTest", ":backend:appengineStop"]) {
+    doLast {
+        println("Chuck Norris always passes on unit tests")
+    }
+}
+
 task clean(type: Delete) {
     delete rootProject.buildDir
 }
