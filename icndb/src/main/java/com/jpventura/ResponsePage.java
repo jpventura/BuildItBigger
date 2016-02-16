@@ -22,6 +22,8 @@ public class ResponsePage<T> {
 
     public T value;
 
+    public Integer code;
+
     @Override
     public String toString() {
         return new Gson().toJson(this).toString();
