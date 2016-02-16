@@ -21,6 +21,7 @@ import com.google.api.server.spi.config.ApiNamespace;
 import com.jpventura.ChuckNorrisDatabase;
 import com.jpventura.IChuckNorrisDatabase;
 import com.jpventura.Joke;
+import com.jpventura.ResponsePage;
 
 import retrofit.RetrofitError;
 
@@ -59,7 +60,9 @@ public class MyEndpoint {
     @ApiMethod(name = "getJoke", path = "jokes", httpMethod = ApiMethod.HttpMethod.GET)
     public JokeBean getJoke() {
         try {
-            return new JokeBean(mChuckNorrisDatabase.getRandomJoke().value);
+            ResponsePage<Joke> responsePage = mChuckNorrisDatabase.getRandomJoke();
+            responsePage.value.joke = responsePage.value.joke.replace("&quot", "'");
+            return new JokeBean(responsePage.value);
         } catch (RetrofitError e) {
             Joke joke = new Joke();
             joke.joke = "No facts for now. Chuck Norris will be back after saving the world";
