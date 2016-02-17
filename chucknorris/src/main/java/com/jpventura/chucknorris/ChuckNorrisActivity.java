@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.jpventura.builditbigger;
+package com.jpventura.chucknorris;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;

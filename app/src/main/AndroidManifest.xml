@@ -34,7 +34,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".ChuckNorrisActivity"
+            android:name="com.jpventura.chucknorris.ChuckNorrisActivity"
             android:label="@string/title_activity_chuck_norris"
             android:parentActivityName="com.jpventura.builditbigger.MainActivity"
             android:theme="@style/AppTheme" />

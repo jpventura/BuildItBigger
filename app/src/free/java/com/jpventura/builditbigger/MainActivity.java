@@ -28,6 +28,7 @@ import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.InterstitialAd;
 import com.jpventura.builditbigger.command.GetChuckNorrisFact;
+import com.jpventura.chucknorris.ChuckNorrisActivity;
 
 public class MainActivity extends AppCompatActivity implements OnClickListener {
     private static final String TAG = MainActivity.class.getSimpleName();
@@ -146,4 +147,3 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
         command.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
     }
 }
-
