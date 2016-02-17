@@ -24,20 +24,14 @@ import android.view.View;
 import android.view.View.OnClickListener;
 
 import com.jpventura.builditbigger.command.GetChuckNorrisFact;
-import com.jpventura.builditbigger.command.GetGoogleAccount;
-import com.jpventura.builditbigger.command.GetGoogleAccount.OnGetGoogleAccountListener;
-import com.jpventura.builditbigger.controller.ChuckNorrisClient;
 import com.jpventura.chucknorris.ChuckNorrisActivity;
 
-public class MainActivity extends AppCompatActivity implements OnClickListener,
-        OnGetGoogleAccountListener {
+public class MainActivity extends AppCompatActivity implements OnClickListener {
     private static final String TAG = MainActivity.class.getSimpleName();
     private static final String PROGRESS_BAR_VISIBLE = "com.jpventura.builditbigger.progress_bar";
 
     private static ProgressDialog sProgressDialog;
     private static String sChuckNorrisFact;
-
-    private ChuckNorrisClient mChuckNorrisClient;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,26 +39,6 @@ public class MainActivity extends AppCompatActivity implements OnClickListener,
         setContentView(R.layout.activity_main);
 
         findViewById(R.id.button_get_fact).setOnClickListener(this);
-
-        mGetGoogleAccount = new GetGoogleAccount(this);
-        mGetGoogleAccount.setOnGetGoogleAccountListener(this);
-        mGetGoogleAccount.execute();
-    }
-
-    private GetGoogleAccount mGetGoogleAccount;
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        switch (requestCode) {
-            case GetGoogleAccount.REQUEST_CODE:
-                mGetGoogleAccount.onActivityResult(resultCode, data);
-                break;
-            case ChuckNorrisClient.REQUEST_CODE:
-                mChuckNorrisClient.onActivityResult(resultCode, data);
-                break;
-            default:
-                super.onActivityResult(requestCode, resultCode, data);
-        }
     }
 
     @Override
@@ -88,11 +62,6 @@ public class MainActivity extends AppCompatActivity implements OnClickListener,
     @Override
     public void onClick(View view) {
 		getChuckNorrisFact();
-    }
-
-    @Override
-    public void onGetGoogleAccount(String account) {
-        ChuckNorrisClient.initialize(this, account);
     }
 
     private void onSaveProgressDialog(Bundle state) {

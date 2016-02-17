@@ -31,7 +31,7 @@ public abstract class GetChuckNorrisFact extends AsyncTask<Void, Integer, String
 
     @Override
     protected String doInBackground(Void... params) {
-        ChuckNorrisClient client = ChuckNorrisClient.getInstance();
+        ChuckNorrisClient client = ChuckNorrisClient.getInstance(mContext.get());
         return client.getJoke();
     }
 }
