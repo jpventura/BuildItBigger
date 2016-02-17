@@ -128,7 +128,7 @@ public class MainActivity extends AppCompatActivity implements OnClickListener,
         sChuckNorrisFact = fact;
         Intent intent = new Intent(this, ChuckNorrisActivity.class);
         intent.putExtra("fact", fact);
-        startActivity();
+        startActivity(intent);
     }
 
     private void getChuckNorrisFact() {
