@@ -22,6 +22,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.Button;
 
 import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
@@ -37,13 +38,16 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
     private static ProgressDialog sProgressDialog;
 
     private AdView mAdView;
+    private Button mGetFact;
     private InterstitialAd mInterstitialAd;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        findViewById(R.id.button_get_fact).setOnClickListener(this);
+        mGetFact = (Button) findViewById(R.id.button_get_fact);
+        mGetFact.setOnClickListener(this);
+        mGetFact.setEnabled(false);
 
         AdRequest adRequest = new AdRequest.Builder()
                 .addTestDevice(AdRequest.DEVICE_ID_EMULATOR)
@@ -58,6 +62,12 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
             public void onAdClosed() {
                 super.onAdClosed();
                 getChuckNorrisFact();
+            }
+
+            @Override
+            public void onAdLoaded() {
+                super.onAdLoaded();
+                mGetFact.setEnabled(true);
             }
         });
     }
